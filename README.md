@@ -8,99 +8,67 @@ Web app and framework offering modular conversion, encoding and encryption. Tran
 
 ## Getting started
 
-Several quick start options are available:
+- Use the [live version](https://cryptii.com)
+- Download the [latest stable release](https://github.com/cryptii/cryptii/releases/latest) or [other releases](https://github.com/cryptii/cryptii/releases)
+- Clone the repository: `git clone git@github.com:cryptii/cryptii.git`
+- Build project locally:
+  - Ensure you have Node.js of version specified in `.nvmrc` installed.
+  - Install dependencies: `npm ci`
+  - Run build tasks: `npm run build`
+  - Run build tasks on file change: `npm run watch`
+- [Contribute to the project](CONTRIBUTING.md) or [report an issue](https://github.com/cryptii/cryptii/issues/new/choose)
 
-- Use the [latest live version](https://cryptii.com) or [download the latest release](https://github.com/cryptii/cryptii/releases/latest).
-- Clone the repo: `git clone git@github.com:cryptii/cryptii.git`
-- Install the [node](https://nodejs.org/) version specified in `.nvmrc`.
-- Run `npm install` to install the dependencies.
-- Run `npm run-script build` to build into the `dist/` folder.
-- Run `npm run-script test` to test the source code.
-- Run `npm run-script watch` to watch for changes.
+## Concept
 
-## Concepts
+This framework and web app aims to support a wide variety of ciphers, formats, algorithms and methods (called 'Bricks') while keeping them easily combinable. There are currently two types of Bricks: Encoders and Viewers. Encoders manipulate content by encoding or decoding in a specific way and using specific settings while Viewers allow users to access and edit the content fed into or outputted by Encoders in a certain way and format.
 
-This framework and web app tries to reflect a wide variety of ciphers, formats, algorithms and methods (called 'bricks') while keeping them easily combinable. There are two categories of bricks: encoders and viewers.
+Bricks can be arranged inside a Pipe. When the content gets edited inside a Viewer or when Brick settings get changed, the result propagates through the Pipe's Bricks in order and in both directions.
 
-### Encoders
+Chain objects encapsulate UTF-8 text or binary based content exchanged between Bricks. They automatically encode or decode the content when combining a text based output with a binary based input and vice-versa.
 
-Encoders manipulate content by encoding or decoding it in a specific way and using specific settings.
+## Brick library
 
 | Name | Category | Description |
 | ---- | -------- | ----------- |
-| `a1z26` | Ciphers | Number to letter encoder (A1Z26) |
-| `affine-cipher` | Ciphers | [Affine Cipher](https://en.wikipedia.org/wiki/Affine_cipher) |
-| `alphabetical-substitution` | Ciphers | [Alphabetical substitution](https://en.wikipedia.org/wiki/Substitution_cipher#Simple_substitution) |
-| `ascii85` | Encoding | [Ascii85 / Base85](https://en.wikipedia.org/wiki/Ascii85) incl. variant [Z85](https://rfc.zeromq.org/spec:32/Z85/) |
-| `base32` | Encoding | [Base32](https://en.wikipedia.org/wiki/Base32) incl. variants base32hex, z-base-32, … |
-| `base64` | Encoding | [Base64](https://en.wikipedia.org/wiki/Base64) incl. variants base64url, … |
-| `bitwise-operation` | Transform | [Bitwise operations](https://en.wikipedia.org/wiki/Bitwise_operation) (NOT, AND, OR, …) |
-| `block-cipher` | Modern cryptography | [Block ciphers](https://en.wikipedia.org/wiki/Block_cipher) incl. [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) |
-| `bootstring` | Encoding | [Bootstring](https://tools.ietf.org/html/rfc3492) |
-| ↳ `punycode` | Encoding | [Punycode](https://tools.ietf.org/html/rfc3492) |
-| `caesar-cipher` | Ciphers | [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) |
-| `case-transform` | Transform | Transforms to upper case, lower case, … |
-| `enigma` | Ciphers | [Enigma machine](https://en.wikipedia.org/wiki/Enigma_machine) incl. 13 models |
-| `hash` | Modern cryptography | Creating a [message digest](https://en.wikipedia.org/wiki/Cryptographic_hash_function) |
-| ↳ `hmac` | Modern cryptography | Creating a [Hash-based message authentication code](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code) |
-| `integer` | Encoding | Translates between bytes and [integers](https://en.wikipedia.org/wiki/Integer_(computer_science)) |
-| `morse-code` | Alphabets | [Morse code](https://en.wikipedia.org/wiki/Morse_code) (English) |
-| `numeral-system` | Transform | Translates numerals between systems |
-| `polybius-square` | Polybius square | [Polybius square](https://en.wikipedia.org/wiki/Polybius_square) |
-| ↳ `adfgx-cipher` | Polybius square | [ADFGX cipher](https://en.wikipedia.org/wiki/ADFGVX_cipher) |
-| ↳ `bifid-cipher` | Polybius square | [Bifid cipher](https://en.wikipedia.org/wiki/Bifid_cipher) |
-| ↳ `nihilist-cipher` | Polybius square | [Nihilist cipher](https://en.wikipedia.org/wiki/Nihilist_cipher) |
-| ↳ `tap-code` | Polybius square | [Tap code](https://en.wikipedia.org/wiki/Tap_code) |
-| `rc4` | Modern cryptography | [RC4](https://en.wikipedia.org/wiki/RC4) incl. RC4-drop |
+| [`a1z26`](https://cryptii.com/pipes/a1z26-cipher) | Ciphers | Number to letter encoder (A1Z26) |
+| [`adfgx-cipher`](https://cryptii.com/pipes/adfgvx-cipher) | Polybius square | [ADFGX cipher](https://en.wikipedia.org/wiki/ADFGVX_cipher) |
+| [`affine-cipher`](https://cryptii.com/pipes/affine-cipher) | Ciphers | [Affine Cipher](https://en.wikipedia.org/wiki/Affine_cipher) |
+| [`alphabetical-substitution`](https://cryptii.com/pipes/alphabetical-substitution) | Ciphers | [Alphabetical substitution](https://en.wikipedia.org/wiki/Substitution_cipher#Simple_substitution) |
+| [`ascii85`](https://cryptii.com/pipes/ascii85-encoding) | Encoding | [Ascii85 / Base85](https://en.wikipedia.org/wiki/Ascii85) incl. variant [Z85](https://rfc.zeromq.org/spec:32/Z85/) |
+| [`bacon-cipher`](https://cryptii.com/pipes/bacon-cipher) | Ciphers | [Bacon's cipher](https://en.wikipedia.org/wiki/Bacon%27s_cipher) |
+| [`base32`](https://cryptii.com/pipes/base32) | Encoding | [Base32](https://en.wikipedia.org/wiki/Base32) incl. variants base32hex, z-base-32, … |
+| [`base64`](https://cryptii.com/pipes/text-to-base64) | Encoding | [Base64](https://en.wikipedia.org/wiki/Base64) incl. variants base64url, … |
+| [`baudot-code`](https://cryptii.com/pipes/baudot-code) | Encoding | [Baudot code](https://en.wikipedia.org/wiki/Baudot_code) |
+| [`bifid-cipher`](https://cryptii.com/pipes/bifid-cipher) | Polybius square | [Bifid cipher](https://en.wikipedia.org/wiki/Bifid_cipher) |
+| [`bitwise-operation`](https://cryptii.com/pipes/bitwise-calculator) | Transform | [Bitwise operations](https://en.wikipedia.org/wiki/Bitwise_operation) (NOT, AND, OR, …) |
+| [`block-cipher`](https://cryptii.com/pipes/aes-encryption) | Modern cryptography | [Block ciphers](https://en.wikipedia.org/wiki/Block_cipher) incl. [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) |
+| [`bootstring`](https://cryptii.com/pipes/bootstring) | Encoding | [Bootstring](https://tools.ietf.org/html/rfc3492) |
+| [`bytes`](https://cryptii.com/pipes/text-to-binary) | View | Viewing and editing bytes |
+| [`caesar-cipher`](https://cryptii.com/pipes/caesar-cipher) | Ciphers | [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) |
+| [`case-transform`](https://cryptii.com/pipes/convert-case) | Transform | Transforms to upper case, lower case, … |
+| [`enigma`](https://cryptii.com/pipes/enigma-machine) | Ciphers | [Enigma machine](https://en.wikipedia.org/wiki/Enigma_machine) incl. 13 models |
+| [`hash`](https://cryptii.com/pipes/hash-function) | Modern cryptography | Creating a [message digest](https://en.wikipedia.org/wiki/Cryptographic_hash_function) |
+| [`hmac`](https://cryptii.com/pipes/hmac) | Modern cryptography | Creating a [Hash-based message authentication code](https://en.wikipedia.org/wiki/Hash-based_message_authentication_code) |
+| [`integer`](https://cryptii.com/pipes/integer-encoder) | Encoding | Translates between bytes and [integers](https://en.wikipedia.org/wiki/Integer_(computer_science)) |
+| [`morse-code`](https://cryptii.com/pipes/morse-code-translator) | Alphabets | [Morse code](https://en.wikipedia.org/wiki/Morse_code) (English) |
+| [`nihilist-cipher`](https://cryptii.com/pipes/nihilist-cipher) | Polybius square | [Nihilist cipher](https://en.wikipedia.org/wiki/Nihilist_cipher) |
+| [`numeral-system`](https://cryptii.com/pipes/roman-numerals) | Transform | Translates numerals between systems |
+| [`punched-tape`](https://cryptii.com/pipes/baudot-code) | View | [Punched tape](https://en.wikipedia.org/wiki/Punched_tape) |
+| [`polybius-square`](https://cryptii.com/pipes/polybius-square) | Polybius square | [Polybius square](https://en.wikipedia.org/wiki/Polybius_square) |
+| [`punycode`](https://cryptii.com/pipes/punycode) | Encoding | [Punycode](https://tools.ietf.org/html/rfc3492) |
+| [`rail-fence-cipher`](https://cryptii.com/pipes/rail-fence-cipher) | Ciphers | [Rail fence cipher](https://en.wikipedia.org/wiki/Rail_fence_cipher) |
+| [`rc4`](https://cryptii.com/pipes/rc4-encryption) | Modern cryptography | [RC4](https://en.wikipedia.org/wiki/RC4) incl. RC4-drop |
 | `replace` | Transform | Finds and replaces a given text |
-| `reverse` | Transform | Reverses the order of bytes, characters or lines |
-| `rot13` | Ciphers | [ROT13](https://en.wikipedia.org/wiki/ROT13) incl. variants ROT5, ROT18 & ROT47 |
-| `spelling-alphabet` | Alphabets | Several [spelling alphabets](https://en.wikipedia.org/wiki/Spelling_alphabet) |
-| `trifid-cipher` | Polybius square | [Trifid cipher](https://en.wikipedia.org/wiki/Trifid_cipher) |
-| `unicode-code-points` | Encoding | Encoding to Unicode code points in given format |
-| `url-encoding` | Encoding | [URL encoding / Percent-encoding](https://en.wikipedia.org/wiki/Percent-encoding) |
-| `vigenere-cipher` | Ciphers | [Vigenère cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) incl. [Beaufort cipher](https://en.wikipedia.org/wiki/Beaufort_cipher) variants |
+| [`reverse`](https://cryptii.com/pipes/reverse-text) | Transform | Reverses the order of bytes, characters or lines |
+| [`rot13`](https://cryptii.com/pipes/rot13) | Ciphers | [ROT13](https://en.wikipedia.org/wiki/ROT13) incl. variants ROT5, ROT18 & ROT47 |
+| [`spelling-alphabet`](https://cryptii.com/pipes/nato-phonetic-alphabet) | Alphabets | Several [spelling alphabets](https://en.wikipedia.org/wiki/Spelling_alphabet) |
+| [`tap-code`](https://cryptii.com/pipes/tap-code) | Polybius square | [Tap code](https://en.wikipedia.org/wiki/Tap_code) |
+| [`text`](https://cryptii.com/pipes/text-to-binary) | View | Viewing and editing in plain text |
+| [`trifid-cipher`](https://cryptii.com/pipes/trifid-cipher) | Polybius square | [Trifid cipher](https://en.wikipedia.org/wiki/Trifid_cipher) |
+| [`unicode-code-points`](https://cryptii.com/pipes/unicode-lookup) | Encoding | Encoding to Unicode code points in given format |
+| [`url-encoding`](https://cryptii.com/pipes/urlencode) | Encoding | [URL encoding / Percent-encoding](https://en.wikipedia.org/wiki/Percent-encoding) |
+| [`vigenere-cipher`](https://cryptii.com/pipes/vigenere-cipher) | Ciphers | [Vigenère cipher](https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher) incl. [Beaufort cipher](https://en.wikipedia.org/wiki/Beaufort_cipher) variants |
 
-Example usage:
+---
 
-```javascript
-const bricks = cryptii.BrickFactory.getInstance()
-const encoder = bricks.create('rot13')
-encoder.setSettingValue('variant', 'rot47')
-const result = encoder.encode('Hello World') // returns a Chain object
-result.getString() // returns 'w6==@ (@C=5'
-```
-
-### Viewers
-
-Viewers allow users to view and edit content in a specific way or format.
-
-| Name | Category | Description |
-| ---- | -------- | ----------- |
-| `text` | View | Viewing and editing in plain text |
-| `bytes` | View | Viewing and editing bytes |
-
-### Chains
-
-Chain objects encapsulate the actual content used and returned by encoders and viewers. This content can either be a string, an array of Unicode code points or a `Uint8Array` of bytes.
-
-Chains are immutable. You define its content by passing one of these representations as first argument to the constructor.
-
-```javascript
-const a = new cryptii.Chain('🦊🚀')
-const b = new cryptii.Chain([129418, 128640])
-const c = new cryptii.Chain(new Uint8Array([240, 159, 166, 138, 240, 159, 154, 128]))
-cryptii.Chain.isEqual(a, b, c) // returns true
-```
-
-The object handles the translation between these representations lazily for you. You can access any of these through getter and additional convenience methods.
-
-```javascript
-const string = chain.getString()
-const codePoints = chain.getCodePoints()
-const bytes = chain.getBytes()
-```
-
-## Changelog
-
-See [the Releases section of the GitHub repository](https://github.com/cryptii/cryptii/releases) for changelogs for each release version of cryptii.
+This is a project by [Fränz Friederes](https://fraenz.frieder.es/) and [contributors](https://github.com/cryptii/cryptii/graphs/contributors)

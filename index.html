@@ -26,18 +26,25 @@
             "alias": "Plaintext"
           },
           {
-            "name": "adfgx-cipher",
+            "name": "baudot-code"
+          },
+          {
+            "name": "punched-tape",
             "settings": {
-              "alphabet": "btalpdhozkqfvsngicuxmrewy"
+              "rows": 5
             }
           },
           {
-            "name": "text",
-            "alias": "Ciphertext"
+            "name": "bytes",
+            "alias": "Ciphertext",
+            "settings": {
+              "groupBits": 5,
+              "format": "binary"
+            }
           }
         ],
         "content": {
-          "data": "Attack at once"
+          "data": "The quick brown fox jumps over the lazy dog."
         }
       }
     </script>
@@ -64,7 +71,6 @@
             <h1 class="pipe__title">Modular online encoding, encryption and conversion tool</h1>
             <p class="pipe__description">
               Web app that encodes, decodes, encrypts, decrypts, converts, translates, simulates and views content online offering a variety of ciphers, formats, algorithms and methods
-              <a class="btn-more" href="https://cryptii.com" target="_blank" rel="noopener">Read more</a>
             </p>
           </div>
         </header>

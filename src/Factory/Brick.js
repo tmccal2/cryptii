@@ -7,8 +7,10 @@ import ADFGXCipherEncoder from '../Encoder/ADFGXCipher'
 import AffineCipherEncoder from '../Encoder/AffineCipher'
 import AlphabeticalSubstitutionEncoder from '../Encoder/AlphabeticalSubstitution'
 import Ascii85Encoder from '../Encoder/Ascii85'
+import BaconCipherEncoder from '../Encoder/BaconCipher'
 import Base32Encoder from '../Encoder/Base32'
 import Base64Encoder from '../Encoder/Base64'
+import BaudotCodeEncoder from '../Encoder/BaudotCode'
 import BifidCipherEncoder from '../Encoder/BifidCipher'
 import BitwiseOperationEncoder from '../Encoder/BitwiseOperation'
 import BlockCipherEncoder from '../Encoder/BlockCipher'
@@ -23,8 +25,10 @@ import IntegerEncoder from '../Encoder/Integer'
 import MorseCodeEncoder from '../Encoder/MorseCode'
 import NihilistCipherEncoder from '../Encoder/NihilistCipher'
 import NumeralSystemEncoder from '../Encoder/NumeralSystem'
+import PunchedTapeViewer from '../Viewer/PunchedTape'
 import PolybiusSquareEncoder from '../Encoder/PolybiusSquare'
 import PunycodeEncoder from '../Encoder/Punycode'
+import RailFenceCipherEncoder from '../Encoder/RailFenceCipher'
 import RC4Encoder from '../Encoder/RC4'
 import ReplaceEncoder from '../Encoder/Replace'
 import ReverseEncoder from '../Encoder/Reverse'
@@ -55,6 +59,7 @@ export default class BrickFactory extends Factory {
       // View
       TextViewer,
       BytesViewer,
+      PunchedTapeViewer,
 
       // Transform
       ReplaceEncoder,
@@ -74,7 +79,9 @@ export default class BrickFactory extends Factory {
       ROT13Encoder,
       A1Z26Encoder,
       VigenereCipherEncoder,
+      BaconCipherEncoder,
       AlphabeticalSubstitutionEncoder,
+      RailFenceCipherEncoder,
 
       // Polybius square ciphers
       PolybiusSquareEncoder,
@@ -88,10 +95,11 @@ export default class BrickFactory extends Factory {
       Base32Encoder,
       Base64Encoder,
       Ascii85Encoder,
+      BaudotCodeEncoder,
+      UnicodeCodePointsEncoder,
       URLEncoder,
       PunycodeEncoder,
       BootstringEncoder,
-      UnicodeCodePointsEncoder,
       IntegerEncoder,
 
       // Modern cryptography

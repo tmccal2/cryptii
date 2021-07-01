@@ -1,7 +1,9 @@
 
+/* globals CRYPTII_VERSION */
+
 import AppView from './View/App'
 import BrickFactory from './Factory/Brick'
-import Browser from './Browser'
+import EnvUtil from './EnvUtil'
 import Pipe from './Pipe'
 import Service from './Service'
 import Viewable from './Viewable'
@@ -11,6 +13,7 @@ import Viewable from './Viewable'
  * @type {object}
  */
 const defaultConfig = {
+  version: CRYPTII_VERSION,
   scope: '/',
   serviceEndpoint: 'https://cryptii.com/api',
   serviceWorkerUrl: null
@@ -51,8 +54,8 @@ export default class App extends Viewable {
    * @return {App} Fluent interface
    */
   run (pipeData = null) {
-    // Apply browser class name
-    Browser.applyClassName()
+    // Place browser attribute
+    EnvUtil.placeBrowserAttribute()
 
     // Create and configure pipe instance
     if (pipeData !== null) {
@@ -70,14 +73,44 @@ export default class App extends Viewable {
     view.layout()
     setTimeout(view.layout.bind(view), 100)
 
-    // Register the service worker
-    if (this._config.serviceWorkerUrl && navigator.serviceWorker) {
-      navigator.serviceWorker.register(this._config.serviceWorkerUrl, {
-        scope: this._config.scope
+    // Configure service worker, if supported
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      if (this._config.serviceWorkerUrl) {
+        // Register the service worker
+        navigator.serviceWorker.register(this._config.serviceWorkerUrl, {
+          scope: this._config.scope
+        })
+      } else {
+        // Unregister existing service workers
+        navigator.serviceWorker.getRegistrations().then(registrations =>
+          registrations.forEach(registration => registration.unregister()))
+      }
+    }
+
+    // Listen for the debug shortcut `Ctrl+I`
+    if (EnvUtil.isBrowser()) {
+      document.addEventListener('keydown', evt => {
+        if (evt.ctrlKey && evt.key === 'i') {
+          evt.preventDefault()
+          alert(this.debug())
+        }
       })
     }
 
     return this
+  }
+
+  /**
+   * Composes a JSON string containing debug information about the current app
+   * state useful for bug reports.
+   * @return {string}
+   */
+  debug () {
+    return JSON.stringify({
+      version: this._config.version,
+      env: EnvUtil.identify(),
+      pipe: this.getPipe().serialize(),
+    })
   }
 
   /**

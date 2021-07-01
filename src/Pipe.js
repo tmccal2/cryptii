@@ -830,7 +830,7 @@ export default class Pipe extends Viewable {
     if (brick instanceof Encoder) {
       // Trigger encode or decode depending on location of the selected bucket
       const lowerBucket = this.getBucketIndexForBrick(brick)
-      const isEncode = this._selectedBucket > lowerBucket
+      const isEncode = this._selectedBucket <= lowerBucket
       this._triggerEncoderTranslation(brick, isEncode)
     } else {
       // Trigger view
@@ -889,7 +889,9 @@ export default class Pipe extends Viewable {
    * @param {Brick} brick
    */
   async brickReplaceButtonDidClick (brick) {
+    // Show only bricks of the same type in the modal view
     const modalView = this.getLibraryModalView()
+    modalView.applyFilter(brickMeta => brickMeta.type === brick.getMeta().type)
 
     // Ignore event when library modal view is already visible
     if (modalView.isVisible()) {
@@ -925,9 +927,9 @@ export default class Pipe extends Viewable {
     // Track action
     EventManager.trigger('pipeAddButtonClick', { pipe: this, index })
 
-    // Build modal
-    const factory = this.getBrickFactory()
-    const modalView = new LibraryModalView(factory.getLibrary())
+    // Offer all bricks in the modal view
+    const modalView = this.getLibraryModalView()
+    modalView.clearFilter()
 
     let name
     try {
@@ -938,7 +940,7 @@ export default class Pipe extends Viewable {
     }
 
     // Create brick and add it to the pipe
-    const brick = factory.create(name)
+    const brick = this.getBrickFactory().create(name)
     this.spliceBricks(index, 0, [brick])
   }
 
